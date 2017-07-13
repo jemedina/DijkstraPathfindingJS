@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Dijkstra</title>
+	</head>
+	<body style="background: gray; margin: 0">
+		<canvas id="grid" width="600" height="600"></canvas>
+		<br>
+		<script src="mapper.js"></script>
+		<script src="graph.js"></script>
+		<script src="graphics.js"></script>
+		<script>
+			var size = parseInt(prompt("Ingrese tamaño del grid:"));
+			var mapper = new Mapper(size);
+
+			var grid = new Grid("grid",600);
+			grid.draw(size);
+			function solve() {
+				var start = grid.getStart();
+				var end = grid.getEnd();
+				mapper.skips = grid.getSkips();
+				var map = mapper.buildMap(true);
+
+				var dijkstra = new Graph(map);
+				var solution = dijkstra.findPath(start,end);
+				if(solution != undefined)
+				{
+					grid.drawSolution(solution);
+				}
+				else {
+					alert("No ha solucion");
+				}
+				console.log(solution);
+
+			}
+			</script>
+		<button onclick="solve()">Solve</button>
+		
+	</body>
+</html>
